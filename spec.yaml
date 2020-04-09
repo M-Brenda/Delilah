@@ -1,0 +1,552 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Delilah Resto
+  description: Delilah API
+servers: 
+  - url: example
+    description: description
+
+paths:
+  /users:
+    get:
+      description: Permite obtener datos de usuarios
+      
+      responses:
+        200: 
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users'
+
+        404:
+          description: Request not found
+          content: 
+            application/json: 
+              schema:
+                type: string
+                example: {"Message:":"Error 404. Page or requet not found."}
+    post:
+      description: Crea usuarios en la base de datos
+      parameters:
+        - name: user_id
+          in: query
+          description: Crear un nuevo usuario en la base de datos
+          schema:
+            $ref: '#/components/schemas/users'
+            
+      responses:
+        200:
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"Message:":"Successful request"}
+        404:
+          description: Request not found
+          content: 
+            application/json: 
+              schema:
+                type: string
+                example: {"Message:":"Error 404. Page or requet not found."}
+                
+  /users/{user_id}:
+    get:
+      description: Obtener información de un usuario ingresando su ID
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          description: ID de usuario
+          schema:
+            type: number
+            example: 123
+      responses:
+        200:
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users'
+                
+        404:
+          description: Request not found
+          content: 
+            application/json: 
+              schema:
+                type: string
+                example: {"Message:":"Error 404. Page or requet not found."}
+    
+  /productos:
+    get:
+      description: Permite obtener datos de productos
+      parameters:
+      - in: query
+        name: prod_id
+        required: true
+        description: ID del producto
+        schema:
+          type: number
+          example: 12
+          
+      - in: query
+        name: prod_name
+        required: false
+        description: Nombre de producto
+        schema:
+          type: string
+          example: Hmaburguesa de garbanzos
+    
+      responses:
+        200: 
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/productos'
+                
+                    
+        404:
+          description: Request not found
+          content: 
+            application/json: 
+              schema:
+                type: string
+                example: {"Message:":"Error 404. Page or requet not found."}
+    post:
+      description: Crea productos en la base de datos
+      parameters:
+        - name: user_id
+          in: query
+          description: Crear un nuevo producto en la base de datos
+          schema:
+            $ref: '#/components/schemas/productos'
+            
+      responses:
+        200:
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"Message:":"Successful request"}
+        404:
+          description: Request not found
+          content: 
+            application/json: 
+              schema:
+                type: string
+                example: {"Message:":"Error 404. Page or requet not found."}
+  /productos/{prod_id}:
+    get:
+      description: Obtener información de un producto ingresando su ID
+      parameters:
+        - in: path
+          name: prod_id
+          required: true
+          description: ID de producto
+          schema:
+            type: number
+            example: 12
+      responses:
+        200:
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/productos'
+                
+        404:
+          description: Request not found
+          content: 
+            application/json: 
+              schema:
+                type: string
+                example: {"Message:":"Error 404. Page or requet not found."}
+    put:
+      summary: 'Permite podificar productos en la base de datos'
+      parameters:
+        - in: path
+          name: prod_id
+          required: true
+          description: ID de producto
+          schema:
+            type: number
+            minimum: 1
+            example: 12
+      responses:
+        200:
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/productos'
+                        
+        404:
+          description: Request not found
+          content: 
+            application/json: 
+              schema:
+                type: string
+                example: {"Message:":"Error 404. Page or requet not found."}
+    delete:
+      summary: 'Permite eliminar productos en la base de datos'
+      parameters:
+        - in: path
+          name: prod_id
+          required: true
+          description: ID de producto
+          schema:
+            type: number
+            minimum: 1
+            example: 12
+      responses:
+        200:
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/productos'
+                        
+        404:
+          description: Request not found
+          content: 
+            application/json: 
+              schema:
+                type: string
+                example: {"Message:":"Error 404. Page or requet not found."}
+  /pedidos:
+    get:
+      description: Permite obtener datos de pedidos
+      responses:
+        200: 
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pedidos'
+                    
+        404:
+          description: Request not found
+          content: 
+            application/json: 
+              schema:
+                type: string
+                example: {"Message:":"Error 404. Page or requet not found."}
+    post:
+      description: Crea pedidos en la base de datos
+      parameters:
+        - name: pedido_id
+          in: query
+          description: Crear un nuevo pedido en la base de datos
+          schema:
+            $ref: '#/components/schemas/pedidos'
+            
+      responses:
+        200:
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"Message:":"Successful request"}
+        404:
+          description: Request not found
+          content: 
+            application/json: 
+              schema:
+                type: string
+                example: {"Message:":"Error 404. Page or requet not found."}
+  
+  /pedidos/{pedido_id}:
+    get:
+        description: Obtener información de un pedido ingresando su ID
+        parameters:
+          - in: path
+            name: pedido_id
+            required: true
+            description: ID de pedido
+            schema:
+              type: number
+              example: 56
+        responses:
+          200:
+            description: Successful request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/pedidos'
+                  
+          404:
+            description: Request not found
+            content: 
+              application/json: 
+                schema:
+                  type: string
+                  example: {"Message:":"Error 404. Page or requet not found."}
+    put:
+      summary: Permite editar el pedido en la base de datos
+      parameters:
+          - in: path
+            name: pedido_id
+            required: true
+            description: ID de pedido
+            schema:
+              type: number
+              example: 56
+      responses:
+          200:
+            description: Successful request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/pedidos'
+                  
+          404:
+            description: Request not found
+            content: 
+              application/json: 
+                schema:
+                  type: string
+                  example: {"Message:":"Error 404. Page or requet not found."}
+    delete:
+      summary: Permite eliminar el pedido en la base de datos
+      parameters:
+          - in: path
+            name: pedido_id
+            required: true
+            description: ID de pedido
+            schema:
+              type: number
+              example: 56
+      responses:
+          200:
+            description: Successful request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/pedidos'
+                  
+          404:
+            description: Request not found
+            content: 
+              application/json: 
+                schema:
+                  type: string
+                  example: {"Message:":"Error 404. Page or requet not found."}
+  /pedidos/{pedido_id}/items:
+    post:
+       summary: 'Permite crear items del pedido en la base de datos'
+       parameters:
+          - name: pedido_id
+            required: true
+            in: path
+            description: 'Crear items de un pedido en la base de datos'
+            schema:
+                 $ref: '#/components/schemas/pedidoItem'   
+       responses:
+          200:
+            description: 'Exito'
+            content:
+              aplication/json:
+                  schema:
+                    type: string
+                    example: 'ok'
+          500:
+            description: 'Operacion Fallida'
+            
+  /pedidos/{pedido_id}/items/{prod_id}:          
+      put:
+        summary: 'Permite modificar el item de pedidos en la base de datos'
+        parameters:
+          - in: path
+            name: pedido_id
+            required: true
+            schema:
+              type: integer
+              minimum: 1
+            description:  'ID de un pedido'
+          - in: path
+            name: prod_id
+            required: true
+            schema:
+              type: integer
+              minimum: 1
+            description:  'ID del item de un pedido'
+        responses:
+          200:
+            description: 'Exito'
+            content:
+              aplication/json:
+                schema:
+                  $ref: '#/components/schemas/pedidoItem'  
+          404:
+            description: 'Error'
+      delete:
+        summary: 'Permite eliminar un item de pedido en la base de datos'
+        # define the parameters
+        parameters:
+          - in: path
+            name: pedido_id
+            required: true
+            schema:
+              type: integer
+              minimum: 1
+            description:  'ID de un pedido'
+          - in: path
+            name: prod_id
+            required: true
+            schema:
+              type: integer
+              minimum: 1
+            description:  'ID del item de un pedido'
+        responses:
+          200:
+            description: 'Exito'
+            content:
+              aplication/json:
+                schema:
+                  $ref: '#/components/schemas/pedidoItem'  
+          404:
+            description: Request not found
+            content: 
+              application/json: 
+                schema:
+                  type: string
+                  example: {"Message:":"Error 404. Page or requet not found."}
+components:
+  schemas:
+    users:
+      type: object
+      properties:
+                    user_id:
+                      type: integer
+                      description: ID de usuario
+                      example: 123
+                    user_name:
+                      type: string
+                      description: Nombre de usuario
+                      example: queen_freddie
+                    fullname:
+                      type: string
+                      description: Nombre completo del usuario
+                      example: Freddie Mercury
+                    email:
+                      type: string
+                      description: Email del usuario
+                      example: freddiemercury@gmail.com
+                    telephone:
+                      type: integer
+                      description: Telefono de usuario
+                      example: 44 7712345678
+                    addres:
+                      type: string
+                      description: Direccion de usuario
+                      example: 1 Logan PIKensington, London W8 6DE, UK
+                    password:
+                      type: string
+                      description: Contraseña del usuario
+                      example: pass123
+    productos:
+      type: object
+      properties:
+                    prod_id:
+                      type: integer
+                      description: ID de producto
+                      example: 12
+                    prod_name:
+                      type: string
+                      description: Nombre de producto
+                      example: Hamburguesa de garbanzos
+                    prod_price:
+                      type: integer
+                      description: Precio del producto
+                      example: 215
+    pedidos:
+      type: object
+      properties:
+                    pedido_id:
+                      type: integer
+                      format: int64
+                      description: ID del pedido
+                      example: 56
+                    pedido_fecha:
+                      type: string
+                      format: date-time
+                      description: Fecha del pedido
+                      example: 12/03/2020
+                    user_id:
+                      type: integer
+                      format: int64
+                      description: ID del usuario que realizó el pedido
+                      example: 123
+                    quantity:
+                      type: integer
+                      format: int32
+                      description: cantidad
+                      
+                    fpago_id:
+                      type: integer
+                      format: int32
+                      description: ID de forma de pago
+                      example: 2
+                    total_price:
+                      type: integer
+                      format: int64
+                      description: Precio total a pagar
+                      example: 356
+                    status:
+                      type: string
+                      description: Order Status
+                      enum:
+                      - placed
+                      - approved
+                      - delivered
+                    complete:
+                      type: boolean
+                      default: false
+    pedidoItem:        
+        type: object
+        properties:
+          item_id:
+              type: integer
+              description: 'Id de los productos que forman el pedido'
+              items:
+                example: 1
+          prod_id:
+              type: integer
+              description: 'ID del producto'
+              example: 56
+          cantidad:
+              type: integer
+              description: 'cantidad de unidades pedidas'
+              example: 10
+          prod_pice:
+              type: number
+              description: 'Precio del producto'
+              example: 215
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+      petstore_auth:
+        type: oauth2
+        flows:
+          implicit:
+            authorizationUrl: http://petstore.swagger.io/oauth/dialog
+            scopes:
+              write:pets: modify pets in your account
+              read:pets: read your pets
+      api_key:
+        type: apiKey
+        name: api_key
+        in: header
