@@ -8,10 +8,10 @@ servers:
     description: description
 
 paths:
+      
   /users:
     get:
       description: Permite obtener datos de usuarios
-      
       responses:
         200: 
           description: Successful request
@@ -28,30 +28,54 @@ paths:
                 type: string
                 example: {"Message:":"Error 404. Page or requet not found."}
     post:
-      description: Crea usuarios en la base de datos
+        description: Crea usuarios en la base de datos
+        parameters:
+          - name: user_id
+            in: query
+            description: Crear un nuevo usuario en la base de datos
+            schema:
+              $ref: '#/components/schemas/users'
+              
+        responses:
+          200:
+            description: Successful request
+            content:
+              application/json:
+                schema:
+                  type: string
+                  example: {"Message:":"Successful request"}
+          404:
+            description: Request not found
+            content: 
+              application/json: 
+                schema:
+                  type: string
+                  example: {"Message:":"Error 404. Page or requet not found."}
+  /login:
+    post:
+      description: Ingresar con un usuario ya registrado
       parameters:
-        - name: user_id
-          in: query
-          description: Crear un nuevo usuario en la base de datos
-          schema:
-            $ref: '#/components/schemas/users'
-            
+          - name: user_id
+            in: query
+            description: Ingresar con un usuario ya registrado
+            schema:
+              $ref: '#/components/schemas/login'
+              
       responses:
-        200:
-          description: Successful request
-          content:
-            application/json:
-              schema:
-                type: string
-                example: {"Message:":"Successful request"}
-        404:
-          description: Request not found
-          content: 
-            application/json: 
-              schema:
-                type: string
-                example: {"Message:":"Error 404. Page or requet not found."}
-                
+          200:
+            description: Successful request
+            content:
+              application/json:
+                schema:
+                  type: string
+                  example: {"Message:":"Successful request"}
+          404:
+            description: Request not found
+            content: 
+              application/json: 
+                schema:
+                  type: string
+                  example: {"Message:":"Error 404. Page or requet not found."}
   /users/{user_id}:
     get:
       description: Obtener información de un usuario ingresando su ID
@@ -418,6 +442,21 @@ paths:
                   example: {"Message:":"Error 404. Page or requet not found."}
 components:
   schemas:
+    login:
+      type: object
+      properties:
+                    user_name:
+                      type: string
+                      description: Nombre de usuario
+                      example: queen_freddie
+                    email:
+                      type: string
+                      description: Email del usuario
+                      example: freddiemercury@gmail.com
+                    pass_user:
+                      type: string
+                      description: Contraseña del usuario
+                      example: pass123
     users:
       type: object
       properties:
@@ -429,7 +468,7 @@ components:
                       type: string
                       description: Nombre de usuario
                       example: queen_freddie
-                    fullname:
+                    full_name:
                       type: string
                       description: Nombre completo del usuario
                       example: Freddie Mercury
@@ -441,11 +480,11 @@ components:
                       type: integer
                       description: Telefono de usuario
                       example: 44 7712345678
-                    addres:
+                    address:
                       type: string
                       description: Direccion de usuario
                       example: 1 Logan PIKensington, London W8 6DE, UK
-                    password:
+                    pass_user:
                       type: string
                       description: Contraseña del usuario
                       example: pass123
