@@ -23,30 +23,28 @@ router.route('/')
     )
     .then(User => res.status(200).send("Usuario creado. Tu nombre de usuario es "+ user.user_name));
   })
-/*
-router.route('/:prod_id')
-  .get((req, res) => {
-    const id=req.params.prod_id;
-    seq.query(`SELECT * FROM products WHERE prod_id = ${id}`,
+
+  router.route('/me')
+  .get(middlewares.autentication, (req, res) => {
+    var id = req.user.id;
+    console.log ("EL ID ES " + id )
+    seq.query(`SELECT * FROM users where user_id=${id}`,
     { type: seq.QueryTypes.SELECT }
     )
-    .then((Products => res.send('Lista de productos' + JSON.stringify(Products))));
+    .then((Users => {
+      res.status(200).send('Mis datos: ' + JSON.stringify(Users));
+   }))
   })
 
-  .put((req, res) => {
-    const id=req.params.prod_id;
-    var producto = req.body;
-    seq.query(`UPDATE products SET prod_name = :prod_name, prod_price=:prod_price WHERE prod_id = ${id}`,
-    {replacements: producto }
-    ) .then(resultados => res.send(resultados));
+  router.route('/:id')
+  .get(middlewares.autentication, middlewares.isAdmin, (req, res) => {
+    var id = req.params.id;
+    seq.query(`SELECT * FROM users where user_id=${id}`,
+    { type: seq.QueryTypes.SELECT }
+    )
+    .then((Users => {
+      res.status(200).send('Datos del usuario: ' + JSON.stringify(Users));
+   }))
   })
-
-  .delete((req, res) => {
-    var id = req.params.prod_id;
-    seq.query(`DELETE FROM products WHERE prod_id=${id}`,
-    ) .then(resultados => res.send(resultados));
-  })
-  
-*/
 
 module.exports = router;

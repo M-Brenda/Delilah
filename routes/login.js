@@ -16,7 +16,7 @@ router.post('/', middlewares.userValidation, (req, res) => {
         )
         .then((resultado) => {
             var id= resultado[0].user_id
-            const token = jwt.sign({ id }, secret);
+            var token = jwt.sign({ id }, secret);
             res.status(200).json({"Log in exitoso. Token: ": token });
         })
 

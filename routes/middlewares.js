@@ -64,10 +64,10 @@ const middlewares = {
     },
 
     autentication : (req, res, next) => {
-        const autHeader = req.headers.authorization;
+        var autHeader = req.headers.authorization;
         console.log("INGRESO: " + autHeader);
         if (autHeader) {
-            const token = autHeader.split(' ')[1];
+            var token = autHeader.split(' ')[1];
             jwt.verify(token, secret, (err, data) => {
             if (err) {
                 res.status(401).json({ error: 'Token invalido' });
@@ -80,7 +80,7 @@ const middlewares = {
             }
         })
         } else {
-        res.status(401).json({ error: 'No se recibio un token' });
+        res.status(401).json({ error: 'No se recibió un token. Inicie sesión para obtenerlo' });
         }
     },
     isAdmin : (req, res, next) => {
@@ -93,18 +93,41 @@ const middlewares = {
             if (resultados[0].rol_id == 1) {
                 res.status(200);
                 next();
-               // return(true);
             } else {
-                res.send("Debe ser administrador para usar esta funcionalidad").redirect('/users/me');
-               // return(false);
+                res.send("Debe ser administrador para usar esta funcionalidad");
             }
         });
     },
 
-    isLoggedIn : function (req, res, next) {
-        if (req.user) return next();
-        res.redirect('/');
+    validateIdProduct : (req, res, next) => {
+        var id= req.params.prod_id;
+        seq.query(`SELECT * FROM products WHERE prod_id=${id}`,
+        { type: seq.QueryTypes.SELECT }
+        )
+        .then((resultados) => {
+            if (resultados!="") {
+                res.status(200);
+                next();
+            } else {
+                res.status(404).send("Producto no encontrado o inexistente");
+            }
+        });
     },
+
+    validateNameProduct : (req, res, next) => {
+        var name= req.body.prod_name;
+        seq.query(`SELECT * FROM products WHERE prod_name='${name}'`,
+        { type: seq.QueryTypes.SELECT }
+        )
+        .then((resultados) => {
+            if (resultados!="") {
+                res.status(404).send("El producto ya existe");
+            } else {
+                res.status(200);
+                next();
+            }
+        });
+    }
 
 };
 module.exports = middlewares;

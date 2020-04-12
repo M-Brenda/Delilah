@@ -23,3 +23,34 @@ address VARCHAR(30) NOT NULL,
 pass_user VARCHAR(25) NOT NULL, 
 rol_id INT NOT NULL,
 FOREIGN KEY (rol_id) REFERENCES rols(rol_id));
+
+CREATE TABLE status_order (
+status_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+status_name VARCHAR(25) NOT NULL);
+
+CREATE TABLE payment (
+payment_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+payment_type VARCHAR(25) NOT NULL);
+
+CREATE TABLE order_header (
+order_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+order_date DATE NOT NULL,
+user_id INT NOT NULL,
+payment_id INT NOT NULL,
+status_id INT NOT NULL,
+order_total  INT UNSIGNED NOT NULL,
+FOREIGN KEY (user_id) REFERENCES users(user_id),
+FOREIGN KEY (payment_id) REFERENCES payment(payment_id),
+FOREIGN KEY (status_id) REFERENCES status_order(status_id)
+);
+
+CREATE TABLE order_items(
+  item_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  order_id  INT NOT NULL,
+  prod_id   INT NOT NULL,
+  item_price INT NOT NULL,
+  item_cant INT UNSIGNED NOT NULL,
+  FOREIGN KEY (ped_Id) REFERENCES pedidos_encab(ped_Id),
+  FOREIGN KEY (prod_Id) REFERENCES productos(prod_Id)
+	
+)
