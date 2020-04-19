@@ -3,7 +3,7 @@ const router = express.Router();
 const parser = require('body-parser');
 const middlewares = require('./middlewares');
 const secret = 'D3lil4h!';
-const seq = require('./database', 'sequelize');
+const seq = require('../database/database', 'sequelize');
 const jwt = require('jsonwebtoken');
 router.use(parser.json());
 

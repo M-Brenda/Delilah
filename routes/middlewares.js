@@ -1,4 +1,4 @@
-const seq = require('./database', 'sequelize');
+const seq = require('../database/database', 'sequelize');
 const bodyParser = require('body-parser');
 const express = require('express');
 const jwt = require('jsonwebtoken');

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const parser = require('body-parser');
-const seq = require('./database', 'sequelize');
+const seq = require('../database/database', 'sequelize');
 const middlewares = require('./middlewares');
 
 router.use(parser.json());
@@ -43,7 +43,11 @@ router.route('/')
     { type: seq.QueryTypes.SELECT }
     )
     .then((Users => {
-      res.status(200).send('Datos del usuario: ' + JSON.stringify(Users));
+      if(Users!=""){
+        res.status(200).send('Datos del usuario: ' + JSON.stringify(Users));
+    } else{
+        res.status(404).send('No se encontró el usuario')
+    }
    }))
   })
 

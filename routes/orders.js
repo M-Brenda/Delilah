@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
-const seq = require('./database', 'sequelize');
+const seq = require('../database/database', 'sequelize');
 const middlewares = require('./middlewares');
 
 //Fecha de hoy para el pedido
@@ -66,6 +66,7 @@ router.route('/')
         });
   })
 
+
   .post(middlewares.autentication, (req, res) => {
     var id = req.user.id;
     var order = req.body;
@@ -92,7 +93,6 @@ router.route('/')
                 console.log("resultados 0" + JSON.stringify(resultados[0].prod_price));
                 console.log("EL PROD PRICE ES" + prod_price + "cant" + item.item_cant)
                 var item_cant = item.item_cant
-            
                 item_price = prod_price*item_cant
                 console.log("mostrAR CANT " + item_cant + "MOSTRAR PROD PRICE" + prod_price + "ITEM PRICE"+ item_price)
                 console.log(" TYPE OF" + typeof(item_cant) + item_cant + typeof(prod_price) + prod_price)
@@ -140,7 +140,7 @@ router.route('/:order_id')
                     )
                     .then((resultados) => {
                         if (resultados!=""){
-                            res.status(200).send("Listado de pedidos" + JSON.stringify(resultados))
+                            res.status(200).send("Detalles del pedido: " + JSON.stringify(resultados))
                         } else{
                             res.status(404).send("No se encontraron pedidos")
                         }
@@ -196,7 +196,7 @@ router.route('/:order_id')
         { type: seq.QueryTypes.SELECT }
         )
         .then((resultados) => {
-            //Si el pedido existe, actualizo su estado
+            //Si el pedido existe, eliminamos primero los items y luego los datos del pedido
             if (resultados!="") {
                 seq.query(`DELETE FROM order_items WHERE order_id=${order_id}`) 
                 .then(resultados => 

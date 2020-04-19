@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const parser = require('body-parser');
-const seq = require('./database', 'sequelize');
+const seq = require('../database/database', 'sequelize');
 const middlewares = require('./middlewares');
 
 router.use(parser.json());
@@ -15,7 +15,7 @@ router.route('/')
       if(Products!=""){
         res.status(200).send('Lista de productos' + JSON.stringify(Products))
     } else{
-      res.status(200).send('No se encontraron productos cargados')
+        res.status(404).send('No se encontraron productos cargados')
     }
     }))
     
@@ -47,9 +47,19 @@ router.route('/:prod_id')
   })
 
   .delete(middlewares.autentication, middlewares.isAdmin, middlewares.validateIdProduct, (req, res) => {
-    var id = req.params.prod_id;
-    seq.query(`DELETE FROM products WHERE prod_id=${id}`,
-    ) .then(resultados => res.status(200).send("Producto eliminado con éxito"));
+    var id = req.params.prod_id; 
+
+    seq.query(`SELECT * FROM order_items WHERE prod_id = ${id}`,
+    { type: seq.QueryTypes.SELECT }
+    )
+    .then((Items => {
+      if(Items!=""){
+        res.status(404).send('El producto no puede ser eliminado ya que se encuentra en pedidos anteriores')
+    } else{
+      seq.query(`DELETE FROM products WHERE prod_id=${id}`,
+      ) .then(resultados => res.status(200).send("Producto eliminado con éxito"));
+    }
+    }))
   })
 
 module.exports = router;

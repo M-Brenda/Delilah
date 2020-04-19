@@ -1,0 +1,521 @@
+{
+	"info": {
+		"_postman_id": "cf7d4eb8-3c8e-4bcf-9744-82d9b52af858",
+		"name": "Delilah Resto",
+		"description": "Endpoints del proyecto Delilah Resto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "/users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"user_name\": \"User\",\n\t\"full_name\": \"User Test\",\n\t\"email\": \"user@mail.com\",\n\t\"telephone\": \"123456\",\n\t\"address\": \"Av Example 123\",\n\t\"pass_user\": \"pass123\",\n\t\"rol_id\": 2\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						},
+						"description": "Permite registrar un usuario nuevo."
+					},
+					"response": []
+				},
+				{
+					"name": "/users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImlhdCI6MTU4NzMwODQxNH0.D1-iFQ9OCLU57PCpQjyfksjKrW2OnQ6NcMeH-JgsJLg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						},
+						"description": "Permite listar los usuarios existentes. Función habilitada sólo para usuarios con rol de administrador."
+					},
+					"response": []
+				},
+				{
+					"name": "/users/me",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImlhdCI6MTU4NzMwODQxNH0.D1-iFQ9OCLU57PCpQjyfksjKrW2OnQ6NcMeH-JgsJLg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/me",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"me"
+							]
+						},
+						"description": "Obtener información sobre su perfil."
+					},
+					"response": []
+				},
+				{
+					"name": "/users/id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImlhdCI6MTU4NzMwODQxNH0.D1-iFQ9OCLU57PCpQjyfksjKrW2OnQ6NcMeH-JgsJLg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/users/7",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"7"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Obtener información sobre un usuario mediante su id. Función habilitada sólamente para usuarios con rol de administrador."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "/login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\t\n\t\"email\": \"\",\n\t\"user_name\": \"admin\",\n\t\"pass_user\": \"admin\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							]
+						},
+						"description": "Ingresar con un usuario previamente registrado."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "/products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImlhdCI6MTU4NzMwODQxNH0.D1-iFQ9OCLU57PCpQjyfksjKrW2OnQ6NcMeH-JgsJLg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/products",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						},
+						"description": "Permite listar todos los productos con su detalle."
+					},
+					"response": []
+				},
+				{
+					"name": "/products",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImlhdCI6MTU4NzMwODQxNH0.D1-iFQ9OCLU57PCpQjyfksjKrW2OnQ6NcMeH-JgsJLg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"prod_name\": \"Ensalada de palta\",\n\t\"prod_price\": 150\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/products",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						},
+						"description": "Permite agregar un nuevo producto. Se valida que el nombre del producto no exista en la base de datos. Función habilitada sólamente para los usuarios con rol de administrador."
+					},
+					"response": []
+				},
+				{
+					"name": "/products/id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImlhdCI6MTU4NzMwODQxNH0.D1-iFQ9OCLU57PCpQjyfksjKrW2OnQ6NcMeH-JgsJLg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/products/3",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"3"
+							]
+						},
+						"description": "Permite obtener información sobre un producto en particular mediante su id."
+					},
+					"response": []
+				},
+				{
+					"name": "/products/id ",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImlhdCI6MTU4NzMwODQxNH0.D1-iFQ9OCLU57PCpQjyfksjKrW2OnQ6NcMeH-JgsJLg"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"prod_name\": \"Papas con queso\",\n\t\"prod_price\": 200\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/products/3",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"3"
+							]
+						},
+						"description": "Permite modificar la información de un producto en particular mediante su id. Función habilitada sólamente para usuarios con rol de administrador."
+					},
+					"response": []
+				},
+				{
+					"name": "/products/id ",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImlhdCI6MTU4NzMwODQxNH0.D1-iFQ9OCLU57PCpQjyfksjKrW2OnQ6NcMeH-JgsJLg"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/products/10",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"10"
+							]
+						},
+						"description": "Permite eliminar un producto en particular mediante su id. Función habilitada sólo para usuarios con rol de administrador."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "/orders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImlhdCI6MTU4NzMwODQxNH0.D1-iFQ9OCLU57PCpQjyfksjKrW2OnQ6NcMeH-JgsJLg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Permite listar todos los pedidos. Si es administrador se listan todos los pedidos existentes. Si es usuario se listan sólo los pedidos asociados a su id."
+					},
+					"response": []
+				},
+				{
+					"name": "/orders",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsImlhdCI6MTU4NzMxMDc2NX0.D0vCEf7G2aIvN_leNIAQc4Y3-yZtFB6brD1pzwJ0QxE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"payment_id\": 1,\n\t\"details\": [\n\t\t{\"prod_id\": 3,\n\t\t\"item_cant\": 2\n\t\t},\n\t\t{\"prod_id\": 4,\n\t\t\"item_cant\": 2\n\t\t}\n\t]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Permite crear un nuevo pedido."
+					},
+					"response": []
+				},
+				{
+					"name": "/orders/id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImlhdCI6MTU4NzMxMDc3Nn0.E6md1wN-cFfuuMjFfDoRWR4sECuZ7xdzexKmwNXm8ek"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/orders/156",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"orders",
+								"156"
+							]
+						},
+						"description": "Permite obtener información sobre un pedido mediante su id. Si el usuario es administrador muestra el detalle. En caso de que no sea administrador, se mostrará detalle de pedido sólamente si el pedido corresponde al usuario que hace la consulta."
+					},
+					"response": []
+				},
+				{
+					"name": "/orders/id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImlhdCI6MTU4NzMxMDc3Nn0.E6md1wN-cFfuuMjFfDoRWR4sECuZ7xdzexKmwNXm8ek"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"status_id\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/orders/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"orders",
+								"1"
+							]
+						},
+						"description": "Permite modificar el estado de un pedido mediante su id. Función habilitada sólamente para usuarios con rol de administrador."
+					},
+					"response": []
+				},
+				{
+					"name": "/orders/id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImlhdCI6MTU4NzMxMDc3Nn0.E6md1wN-cFfuuMjFfDoRWR4sECuZ7xdzexKmwNXm8ek"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/orders/148",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"orders",
+								"148"
+							]
+						},
+						"description": "Permite eliminar un pedido mediante su id. Función habilitada sólo para usuarios con rol de administrador."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
