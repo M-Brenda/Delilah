@@ -184,15 +184,19 @@ router.route('/:order_id')
             for (item of details){
                 var resultado ;
                 var prod_id = item.prod_id;
+                //Busco el precio del producto ingresado
                 const result2=await seq.query(`SELECT prod_price FROM products WHERE prod_id=${prod_id}`, { type: seq.QueryTypes.SELECT },{transaction: t })
                 resultado= result2[0].prod_price;
                 prod_price= resultado;
                 var item_cant = item.item_cant
+                //El precio de cada item será el precio de producto por cantidad seleccionada
                 item_price = prod_price*item_cant
                 suma_total=item_price + suma_total;
+                //Agrego los items a la tabla order_items
                 const result3= await seq.query(`INSERT INTO order_items (order_id, prod_id, item_cant, item_price) 
                 VALUES ('${order_id}', ${item.prod_id}, ${item.item_cant}, ${item_price})`
                 ,{ transaction: t })
+                //Actualizo el total por cada item que voy agregando
                 const result4= await seq.query(`UPDATE order_header SET order_total = ${suma_total} WHERE order_id=${order_id} `, { transaction: t });  
           }
         await t.commit();

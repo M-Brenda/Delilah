@@ -24,7 +24,7 @@ FOREIGN KEY (rol_id) REFERENCES rols(rol_id));
 CREATE TABLE status_order (
 status_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 status_name VARCHAR(25) NOT NULL);
-
+ 
 CREATE TABLE payment (
 payment_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 payment_type VARCHAR(25) NOT NULL);

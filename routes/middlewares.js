@@ -68,7 +68,6 @@ const middlewares = {
             } else {
                 req.user = data;
                 var id = data.id;
-                console.log("La data es: " + JSON.stringify(data));
                 next();
                 return id;
             }

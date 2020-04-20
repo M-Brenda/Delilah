@@ -27,7 +27,6 @@ router.route('/')
   router.route('/me')
   .get(middlewares.autentication, (req, res) => {
     var id = req.user.id;
-    console.log ("EL ID ES " + id )
     seq.query(`SELECT * FROM users where user_id=${id}`,
     { type: seq.QueryTypes.SELECT }
     )

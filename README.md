@@ -45,14 +45,15 @@ _Con estos pasos completos deberíamos tener el servidor corriendo y configurado
 _Informacion importante para realizar las pruebas._
 ### Archivo YAML y Postman collection
 _En el directorio principal del proyecto se encuentra una carpeta llamada `docs` en la cual se encuentra la documentacion de la API mediante un archivo llamado `spec.yaml` ._
-_Ademas se incluye una coleccion de postman( `Delilah Resto.postman_collection.json` ) con todos los endpoints y formatos de datos para las request._
+_Ademas se incluye una colección de postman( `DelilahResto.postman_collection.json` ) con todos los endpoints y formatos de datos para las request._
 ```
 
 ```
 * ## Nota importante :página_boca_arriba:
 _Este proyecto está configurado para usar tokens de autentificacion , que son requeridos para todos los endpoint del proyecto excepto para los de registro y login._
-_Por lo tanto es recomendable primero testear el endpoint de registro de usuario, creando un usuario nuevo y luego con ese usuario loguearse, lo que le devolvera un token que podra ser usado para el header de atentificacion de los demas endpoint a los que usuario comun puede acceder._
-_Por otro lado, la base de datos tiene cargado por defecto un usuario admin, para poder realizar las pruebas, para usarlo y obtener el token , hay que loguearse con usuario `admin` y contraseña `admin` mediante el endpoint de login._
+_Por lo tanto es recomendable primero testear el endpoint de registro de usuario, creando un usuario nuevo y luego con ese usuario loguearse, lo que le devolverá un token que podrá ser usado para el header de atentificación de los demas endpoint a los que usuario común puede acceder._
+_Por otro lado, la base de datos tiene cargado por defecto un usuario admin, para poder realizar las pruebas, para usarlo y obtener el token, hay que loguearse con usuario `admin` y contraseña `admin` mediante el endpoint de login._
+
 ## Autores :plumín_negro:
 * **Brenda Natividad Manzano**
 ---
