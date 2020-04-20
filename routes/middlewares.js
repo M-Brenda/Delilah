@@ -7,7 +7,6 @@ const secret = 'D3lil4h!';
 
 router.use(bodyParser.json());
 
-
 const middlewares = {
     signUp : (req, res, next) => {
         var user_name = req.body.user_name;
@@ -18,9 +17,7 @@ const middlewares = {
         { type: seq.QueryTypes.SELECT }
         )
         .then((resultado) => {
-            console.log(resultado);
             if(resultado!="") {
-                console.log("Resultado dentro del if:" + resultado)
                 user_existe= resultado[0].user_name;
             }
             if (user_existe == user_name) { 
@@ -31,7 +28,6 @@ const middlewares = {
                     )
                     .then((resultado) => {
                         if(resultado!="") {
-                        console.log("Email dentro del if:" + resultado)
                         email_existe= resultado[0].email;
                         }
                         if (email_existe == email) { 
@@ -52,7 +48,6 @@ const middlewares = {
         { type: seq.QueryTypes.SELECT }
         )
         .then((resultado) => {
-            console.log(resultado);
             if(resultado!="") {
                 var id = resultado[0].user_id;
                 next();
@@ -65,7 +60,6 @@ const middlewares = {
 
     autentication : (req, res, next) => {
         var autHeader = req.headers.authorization;
-        console.log("INGRESO: " + autHeader);
         if (autHeader) {
             var token = autHeader.split(' ')[1];
             jwt.verify(token, secret, (err, data) => {
@@ -89,7 +83,7 @@ const middlewares = {
         { type: seq.QueryTypes.SELECT }
         )
         .then((resultados) => {
-            console.log(resultados[0].rol_id)
+
             if (resultados[0].rol_id == 1) {
                 res.status(200);
                 next();

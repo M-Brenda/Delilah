@@ -66,57 +66,19 @@ router.route('/')
         });
   })
 
-
   .post(middlewares.autentication, (req, res) => {
     var id = req.user.id;
     var order = req.body;
-    var order_id;
-    var prod_price;
-    var suma_total = 0;
-    var item_price;
-    seq.query(`INSERT INTO order_header (order_date, user_id, payment_id, status_id, order_total) VALUES ('${today}', ${id}, :payment_id, 1, 0)`
-    , { replacements: order }
-    )
-    .then(resultados => {
-        order_id = JSON.stringify(resultados[0])
-        var { details } = req.body;
-        console.log("DETAILS" + details);
-        details.forEach(item => {
-            var result ;
-            var prod_id = item.prod_id;
-            seq.query(`SELECT prod_price FROM products WHERE prod_id=${prod_id}`,
-            { type: seq.QueryTypes.SELECT }
-            )
-            .then((resultados) => {
-                result= resultados[0].prod_price
-                prod_price = result;
-                console.log("resultados 0" + JSON.stringify(resultados[0].prod_price));
-                console.log("EL PROD PRICE ES" + prod_price + "cant" + item.item_cant)
-                var item_cant = item.item_cant
-                item_price = prod_price*item_cant
-                console.log("mostrAR CANT " + item_cant + "MOSTRAR PROD PRICE" + prod_price + "ITEM PRICE"+ item_price)
-                console.log(" TYPE OF" + typeof(item_cant) + item_cant + typeof(prod_price) + prod_price)
-                console.log("EL NAN: " + item_price)
-                suma_total=item_price + suma_total;
-                seq.query(`INSERT INTO order_items (order_id, prod_id, item_cant, item_price) 
-                VALUES ('${order_id}', ${item.prod_id}, ${item.item_cant}, ${item_price})`
-                , { replacements: details }
-                )
-                .then(resultados => {
-                    seq.query(`UPDATE order_header SET order_total = ${suma_total} WHERE order_id=${order_id} `
-                    )
-                    .then((resultados) => {
-                        console.log("Valor de pedido actualizado")
-                    })
-                });
-
-            })
-        });
-        res.send("Pedido agregado con éxito")
-    });
+    insertOrder(id,order).then(result =>{
+        if(result===true) {
+            res.status(200).send("Pedido agregado con éxito");
+        }else{
+            res.status(404).send("No se ha podido cargar el pedido")
+        }
     })
+  })
 
-
+  
 router.route('/:order_id')
     .get(middlewares.autentication, (req, res) => {
         var order_id = req.params.order_id;
@@ -208,5 +170,38 @@ router.route('/:order_id')
             }
         })
     })
+
+    async function insertOrder(id,order) {
+        const t = await seq.transaction();
+        var order_id;
+        var prod_price;
+        var suma_total = 0;
+        var item_price;
+        try {
+            const result = await seq.query(`INSERT INTO order_header (order_date, user_id, payment_id, status_id, order_total) VALUES ('${today}', ${id}, :payment_id, 1, 0)` , { replacements: order},{ transaction: t })
+            order_id = JSON.stringify(result[0])
+            var { details } = order;
+            for (item of details){
+                var resultado ;
+                var prod_id = item.prod_id;
+                const result2=await seq.query(`SELECT prod_price FROM products WHERE prod_id=${prod_id}`, { type: seq.QueryTypes.SELECT },{transaction: t })
+                resultado= result2[0].prod_price;
+                prod_price= resultado;
+                var item_cant = item.item_cant
+                item_price = prod_price*item_cant
+                suma_total=item_price + suma_total;
+                const result3= await seq.query(`INSERT INTO order_items (order_id, prod_id, item_cant, item_price) 
+                VALUES ('${order_id}', ${item.prod_id}, ${item.item_cant}, ${item_price})`
+                ,{ transaction: t })
+                const result4= await seq.query(`UPDATE order_header SET order_total = ${suma_total} WHERE order_id=${order_id} `, { transaction: t });  
+          }
+        await t.commit();
+        return  true;
+        } catch (error) {
+            await t.rollback();
+            return error;
+        }
+    }
+    
 
   module.exports = router;
