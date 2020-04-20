@@ -26,7 +26,7 @@ _Para eso nos dirigimos al archivo de configuración que se encuentra en esta ru
 
 _Una vez dentro de ese archivo cambiar los valores de los campos `host` , `username` , `password` por los datos que correspondan a su base de datos (creada en el punto  anterior)._
 
-![ejemplo](Captura.png)
+![ejemplo](Captura.PNG)
 
 _Guardar los nuevos datos y salir._
 
